@@ -31,11 +31,14 @@ all: AceUnitMain $(ACE_UNIT_PATH)/generator/AceUnit.jar
 $(ACE_UNIT_PATH)/generator/AceUnit.jar:
 	cd $(ACE_UNIT_PATH)/generator; ant
 
-AceUnitMain: $(patsubst %.c,%.o,$(SOURCES)) ../../../libaceunit.a
+AceUnitMain: $(patsubst %.c,%.o,$(SOURCES)) ../../../libaceunit.a /usr/local/lib/libargp.a
 	$(CC)  $^ -o $@ 
 
 ../../../libaceunit.a:
 	$(MAKE) -C $(dir $@) $(notdir $@)
+
+/usr/local/lib/libargp.a:
+	brew install argp-standalone
 
 .PHONY: clean
 clean:
